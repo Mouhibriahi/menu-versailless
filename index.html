@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Versailles — Menu Gastronomique</title>
+  
+  <!-- Métadonnées SEO & Open Graph Professionnelles -->
+  <meta name="description" content="Découvrez la carte exclusive du Versailles. Une expérience gastronomique unique entre tradition et modernité.">
+  <meta property="og:title" content="Versailles — Menu Interactif">
+  <meta property="og:description" content="Explorez nos entrées fines, plats signatures et mocktails raffinés en temps réel.">
+  <meta property="og:type" content="website">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+
+    :root {
+      --indigo: #443e4c;         
+      --indigo-deep: #312c37;    
+      --whitewash: #fcfaff;       
+      --ochre: #d9149c;          
+      --rust: #7b1fa2;           
+      --line: rgba(217, 20, 156, 0.15);
+      --card-bg: #FFFFFF;
+      --text-main: #312c37;
+      --text-muted: rgba(49, 44, 55, 0.7);
+      --flag-gradient: linear-gradient(90deg, #002395 33.3%, #ffffff 33.3%, #ffffff 66.6%, #ed2939 66.6%);
+    }
+
+    /* Thème Sombre Professionnel (Automatique selon le système) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --whitewash: #120e16;
+        --indigo-deep: #fcfaff;
+        --card-bg: #1a1520;
+        --text-main: #fcfaff;
+        --text-muted: rgba(252, 250, 255, 0.7);
+        --line: rgba(217, 20, 156, 0.3);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--whitewash);
+      font-family: 'Work Sans', sans-serif;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ---- Upper Language Selector Bar ---- */
+    .top-bar {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(10, 3, 20, 0.75);
+      border: 1px solid rgba(217, 20, 156, 0.4);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+    .top-bar:hover {
+      border-color: var(--ochre);
+      background: rgba(10, 3, 20, 0.85);
+      transform: translateY(-1px);
+    }
+    
+    .flag-indicator {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--flag-gradient);
+      box-shadow: 0 0 4px rgba(255,255,255,0.3);
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .lang-select {
+      background: transparent;
+      color: #ffffff;
+      border: none;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      padding-right: 2px;
+    }
+    .lang-select option {
+      background: #1a1520;
+      color: #ffffff;
+      font-weight: normal;
+    }
+
+    /* ---- Hero / Cover ---- */
+    .cover {
+      color: #ffffff;
+      padding: 140px 24px 110px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border-bottom: 4px solid var(--ochre);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(26, 21, 32, 0.45) 0%, rgba(18, 14, 22, 0.85) 100%), 
+                  url('versailles-bg.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      z-index: 1;
+      animation: kenBurns 24s ease-in-out infinite alternate;
+    }
+
+    .cover > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes kenBurns {
+      0% { transform: scale(1.02); }
+      100% { transform: scale(1.08); }
+    }
+
+    .eyebrow {
+      font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--ochre); margin-bottom: 16px; font-weight: 600;
+      text-shadow: 0 0 10px rgba(217, 20, 156, 0.6);
+    }
+    .cover h1 {
+      font-family: 'Fraunces', serif; font-weight: 700; font-size: 56px; line-height: 1.05;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+    }
+    .cover p.tag { 
+      font-size: 16px; 
+      margin-bottom: 26px; 
+      font-style: italic; 
+      font-family: 'Fraunces', serif;
+      opacity: 0.95;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    }
+    .scan-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(217, 20, 156, 0.6); border-radius: 999px;
+      padding: 8px 20px; font-size: 12px; letter-spacing: 0.04em;
+      background: rgba(10, 3, 20, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .scan-pill svg { width: 14px; height: 14px; stroke: var(--ochre); }
+
+    /* ---- Navigation Sticky Optimisée ---- */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--whitewash);
+      border-bottom: 1px solid var(--line);
+      display: flex; overflow-x: auto; gap: 10px; padding: 14px 16px;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav button {
+      flex: 0 0 auto; border: 1px solid rgba(123, 31, 162, 0.2); background: transparent;
+      color: var(--text-main); font-family: 'Work Sans', sans-serif; font-weight: 500; font-size: 13.5px;
+      padding: 8px 20px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+    nav button.active { 
+      background: var(--rust); 
+      color: #fff; 
+      border-color: var(--rust); 
+      font-weight: 600; 
+      box-shadow: 0 4px 10px rgba(123, 31, 162, 0.3);
+    }
+
+    /* ---- Layout Container ---- */
+    main { padding: 40px 20px 60px; max-width: 650px; margin: 0 auto; }
+    
+    section { margin-bottom: 56px; scroll-margin-top: 80px; }
+    section h2 {
+      font-family: 'Fraunces', serif; font-size: 30px; color: var(--rust);
+      margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+    }
+    section h2::after {
+      content: ''; flex: 1; height: 1px; background: var(--line);
+    }
+    section .sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; font-style: italic;}
+
+    /* ---- Premium Interactive Dish Cards ---- */
+    .dish {
+      display: flex; justify-content: space-between; gap: 20px;
+      padding: 22px 16px; border-bottom: 1px solid var(--line);
+      align-items: flex-start;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+      margin: 0 -16px;
+    }
+    .dish:hover {
+      background: var(--card-bg);
+      box-shadow: 0 6px 20px rgba(10, 3, 20, 0.04);
+      transform: translateY(-2px);
+    }
+    .dish:last-child { border-bottom: none; }
+    
+    .dish-text { flex: 1; }
+    .dish-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .dish-name { font-weight: 600; font-size: 17px; line-height: 1.35; color: var(--text-main); }
+    .dish-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+    .dish-price { font-family: 'Fraunces', serif; font-weight: 700; font-size: 18px; color: var(--rust); white-space: nowrap; transition: color 0.2s; }
+    
+    /* Food Images Layout */
+    .dish-img-wrapper {
+      width: 90px; height: 90px; flex-shrink: 0;
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 14px rgba(10,3,20,0.08);
+      background: rgba(0,0,0,0.05);
+    }
+    .dish-img-wrapper img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .dish:hover .dish-img-wrapper img { transform: scale(1.08); }
+
+    .badge {
+      display: inline-block; font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--ochre); color: #fff; padding: 3px 9px; border-radius: 6px; 
+      margin-left: 6px; font-weight: 600; vertical-align: middle;
+      box-shadow: 0 2px 6px rgba(217, 20, 156, 0.3);
+    }
+
+    footer { text-align: center; padding: 40px 20px; font-size: 13px; color: var(--text-muted); letter-spacing: 0.02em; border-top: 1px solid var(--line); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- Sélecteur de langue haut de gamme -->
+  <div class="top-bar">
+    <div class="flag-indicator" id="flagIndicator"></div>
+    <select class="lang-select" id="langSelector" onchange="changeLanguage(this.value)">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="it">IT</option>
+    </select>
+  </div>
+
+  <!-- En-tête / Hero Section -->
+  <div class="cover">
+    <div class="eyebrow" id="text-eyebrow">Café · Restaurant · Lounge</div>
+    <h1>Versailles</h1>
+    <p class="tag" id="text-tag">Une expérience d'exception sous les lueurs de la nuit</p>
+    <div class="scan-pill" id="text-scan-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Menu interactif en temps réel</span>
+    </div>
+  </div>
+
+  <!-- Barre de navigation des catégories -->
+  <nav id="navBar">
+    <button class="active" data-target="entrees" id="nav-entrees">Entrées</button>
+    <button data-target="plats" id="nav-plats">Plats Signatures</button>
+    <button data-target="grillades" id="nav-grillades">Grillades</button>
+    <button data-target="desserts" id="nav-desserts">Desserts</button>
+    <button data-target="boissons" id="nav-boissons">Mocktails & Boissons</button>
+  </nav>
+
+  <!-- Contenu Principal -->
+  <main>
+
+    <!-- ENTRÉES -->
+    <section id="entrees">
+      <h2 id="title-entrees">Entrées</h2>
+      <div class="sub" id="sub-entrees">Pour débuter votre soirée en toute délicatesse</div>
+      
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish1-name">Salade méchouia Fine</div>
+            <div class="dish-price" data-base-price="12">12 TND</div>
+          </div>
+          <div class="dish-desc" id="dish1-desc">Poivrons et tomates grillés traditionnels, garnie de thon de premier choix, œuf de caille et olives sélectionnées.</div>
+        </div>
+        <div class="dish-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&auto=format&fit=crop&q=60" alt="Salade" loading="lazy">
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish2-name">Croustillant de Malsouka <span class="badge" id="badge-popular">Populaire</span></div>
+            <div class="dish-price" data-base-price="9">9 TND</div>
+          </div>
+          <div class="dish-desc" id="dish2-desc">Feuilleté doré croustillant, farce généreuse au thon, œuf parfait et herbes fraîches.</div>
+        </div>
+        <div class="dish-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=200&auto=format&fit=crop&q=60" alt="Brik" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- PLATS SIGNATURES -->
+    <section id="plats">
+      <h2 id="title-plats">Plats Signatures</h2>
+      <div class="sub" id="sub-plats">Les incontournables créations de notre chef</div>
+      
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish3-name">Loup de Mer Rôti</div>
+            <div class="dish-price" data-base-price="42">42 TND</div>
+          </div>
+          <div class="dish-desc" id="dish3-desc">Filet de loup noble saisi, infusion d'huile d'olive vierge, agrumes et sa fine tombée de légumes de saison.</div>
+        </div>
+        <div class="dish-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&auto=format&fit=crop&q=60" alt="Poisson" loading="lazy">
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish4-name">Couscous d'Exception <span class="badge" id="badge-chef">Chef</span></div>
+            <div class="dish-price" data-base-price="34">34 TND</div>
+          </div>
+          <div class="dish-desc" id="dish4-desc">Semoule fine travaillée à l'ancienne, bouillon parfumé aux épices douces et sa garniture sélectionnée.</div>
+        </div>
+        <div class="dish-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=200&auto=format&fit=crop&q=60" alt="Couscous" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- GRILLADES -->
+    <section id="grillades">
+      <h2 id="title-grillades">Grillades au Feu de Bois</h2>
+      <div class="sub" id="sub-grillades">Viandes d'exception saisies à la perfection</div>
+      
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish5-name">Brochettes Tendres d'Agneau</div>
+            <div class="dish-price" data-base-price="28">28 TND</div>
+          </div>
+          <div class="dish-desc" id="dish5-desc">Morceaux d'agneau marinés aux arômes orientaux, grillés minutieusement, accompagnés de frites maison croustillantes.</div>
+        </div>
+        <div class="dish-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&auto=format&fit=crop&q=60" alt="Brochettes" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- DESSERTS -->
+    <section id="desserts">
+      <h2 id="title-desserts">Desserts</h2>
+      <div class="sub" id="sub-desserts">Pour finir sur une irrésistible touche sucrée</div>
+      
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish6-name">Douceur Festive Versailles</div>
+            <div class="dish-price" data-base-price="10">10 TND</div>
+          </div>
+          <div class="dish-desc" id="dish6-desc">Notre interprétation gourmande mariant des saveurs fines de fruits frais et de textures fondantes.</div>
+        </div>
+        <div class="dish-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1546173159-315724a31696?w=200&auto=format&fit=crop&q=60" alt="Dessert" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- MOCKTAILS & BOISSONS -->
+    <section id="boissons">
+      <h2 id="title-boissons">Mocktails & Boissons</h2>
+      <div class="sub" id="sub-boissons">Créations rafraîchissantes et rituels chauds</div>
+      
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish7-name">Citronnade Artisanale Fine</div>
+            <div class="dish-price" data-base-price="8">8 TND</div>
+          </div>
+          <div class="dish-desc" id="dish7-desc">Citrons frais mixés à la menthe douce, subtilement sucrée, servie frappée.</div>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-text">
+          <div class="dish-header">
+            <div class="dish-name" id="dish8-name">Thé Royal aux Pignons</div>
+            <div class="dish-price" data-base-price="6">6 TND</div>
+          </div>
+          <div class="dish-desc" id="dish8-desc">Traditionnel thé vert infusé à la menthe fraîche, surmonté de généreux pignons de pin torréfiés.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="text-footer">© 2026 Versailles Lounge & Restaurant · Design Premium Connected</footer>
+
+  <script>
+    // ---- Système Avancé de Traduction ----
+    const translations = {
+      fr: {
+        "text-eyebrow": "Café · Restaurant · Lounge",
+        "text-tag": "Une expérience d'exception sous les lueurs de la nuit",
+        "text-scan-pill": "Menu interactif en temps réel",
+        "nav-entrees": "Entrées",
+        "nav-plats": "Plats Signatures",
+        "nav-grillades": "Grillades",
+        "nav-desserts": "Desserts",
+        "nav-boissons": "Mocktails & Boissons",
+        "title-entrees": "Entrées",
+        "sub-entrees": "Pour débuter votre soirée en toute délicatesse",
+        "dish1-name": "Salade méchouia Fine",
+        "dish1-desc": "Poivrons et tomates grillés traditionnels, garnie de thon de premier choix, œuf de caille et olives sélectionnées.",
+        "dish2-name": "Croustillant de Malsouka ",
+        "badge-popular": "Populaire",
+        "dish2-desc": "Feuilleté doré croustillant, farce généreuse au thon, œuf parfait et herbes fraîches.",
+        "title-plats": "Plats Signatures",
+        "sub-plats": "Les incontournables créations de notre chef",
+        "dish3-name": "Loup de Mer Rôti",
+        "dish3-desc": "Filet de loup noble saisi, infusion d'huile d'olive vierge, agrumes et sa fine tombée de légumes de saison.",
+        "dish4-name": "Couscous d'Exception ",
+        "badge-chef": "Chef",
+        "dish4-desc": "Semoule fine travaillée à l'ancienne, bouillon parfumé aux épices douces et sa garniture sélectionnée.",
+        "title-grillades": "Grillades au Feu de Bois",
+        "sub-grillades": "Viandes d'exception saisies à la perfection",
+        "dish5-name": "Brochettes Tendres d'Agneau",
+        "dish5-desc": "Morceaux d'agneau marinés aux arômes orientaux, grillés minutieusement, accompagnés de frites maison croustillantes.",
+        "title-desserts": "Desserts",
+        "sub-desserts": "Pour finir sur une irrésistible touche sucrée",
+        "dish6-name": "Douceur Festive Versailles",
+        "dish6-desc": "Notre interprétation gourmande mariant des saveurs fines de fruits frais et de textures fondantes.",
+        "title-boissons": "Mocktails & Boissons",
+        "sub-boissons": "Créations rafraîchissantes et rituels chauds",
+        "dish7-name": "Citronnade Artisanale Fine",
+        "dish7-desc": "Citrons frais mixés à la menthe douce, subtilement sucrée, servie frappée.",
+        "dish8-name": "Thé Royal aux Pignons",
+        "dish8-desc": "Traditionnel thé vert infusé à la menthe fraîche, surmonté de généreux pignons de pin torréfiés.",
+        "text-footer": "© 2026 Versailles Lounge & Restaurant · Design Premium Connected"
+      },
+      en: {
+        "text-eyebrow": "Cafe · Restaurant · Lounge",
+        "text-tag": "An exceptional experience under the evening lights",
+        "text-scan-pill": "Real-time interactive menu",
+        "nav-entrees": "Starters",
+        "nav-plats": "Signature Dishes",
+        "nav-grillades": "Wood-fired Grills",
+        "nav-desserts": "Desserts",
+        "nav-boissons": "Mocktails & Drinks",
+        "title-entrees": "Starters",
+        "sub-entrees": "To begin your evening with ultimate delicacy",
+        "dish1-name": "Fine Mechouia Salad",
+        "dish1-desc": "Traditional grilled peppers and tomatoes, garnished with premium tuna, quail egg, and selected olives.",
+        "dish2-name": "Crispy Malsouka ",
+        "badge-popular": "Popular",
+        "dish2-desc": "Golden crispy pastry, generous tuna filling, perfect egg, and fresh herbs.",
+        "title-plats": "Signature Dishes",
+        "sub-plats": "The must-try creations of our Chef",
+        "dish3-name": "Roasted Sea Bass",
+        "dish3-desc": "Seared noble sea bass filet, virgin olive oil infusion, citrus fruits, and seasonal vegetables.",
+        "dish4-name": "Exceptional Couscous ",
+        "badge-chef": "Chef",
+        "dish4-desc": "Fine traditional hand-rolled semolina, fragrant mild spice broth, and its premium garnish.",
+        "title-grillades": "Wood-fired Grills",
+        "sub-grillades": "Premium meats seared to absolute perfection",
+        "dish5-name": "Tender Lamb Skewers",
+        "dish5-desc": "Pieces of lamb marinated in oriental spices, carefully grilled, served with crispy homemade fries.",
+        "title-desserts": "Desserts",
+        "sub-desserts": "To finish on an irresistible sweet note",
+        "dish6-name": "Versailles Festive Sweetness",
+        "dish6-desc": "Our gourmet interpretation combining delicate flavors of fresh fruits and melting textures.",
+        "title-boissons": "Mocktails & Drinks",
+        "sub-boissons": "Refreshing creations and warm rituals",
+        "dish7-name": "Fine Artisanal Lemonade",
+        "dish7-desc": "Fresh lemons blended with sweet mint, subtly sweetened, served ice cold.",
+        "dish8-name": "Royal Tea with Pine Nuts",
+        "dish8-desc": "Traditional green tea infused with fresh mint, topped with generous roasted pine nuts.",
+        "text-footer": "© 2026 Versailles Lounge & Restaurant · Premium Connected Design"
+      },
+      it: {
+        "text-eyebrow": "Caffè · Ristorante · Lounge",
+        "text-tag": "Un'esperienza eccezionale sotto le luci della sera",
+        "text-scan-pill": "Menu interattivo in tempo reale",
+        "nav-entrees": "Antipasti",
+        "nav-plats": "Piatti d'Autore",
+        "nav-grillades": "Grigliate a Legna",
+        "nav-desserts": "Dolci",
+        "nav-boissons": "Mocktail e Bevande",
+        "title-entrees": "Antipasti",
+        "sub-entrees": "Per iniziare la serata con la massima delicatezza",
+        "dish1-name": "Insalata Mechouia Fina",
+        "dish1-desc": "Peperoni e pomodori grigliati della tradizione, guarniti con tonno di prima scelta, uovo di quaglia e olive selezionate.",
+        "dish2-name": "Malsouka Croccante ",
+        "badge-popular": "Popolare",
+        "dish2-desc": "Sfoglia dorata e croccante, generoso ripieno di tonno, uovo perfetto ed erbe fresche.",
+        "title-plats": "Piatti d'Autore",
+        "sub-plats": "Le creazioni imperdibili del nostro Chef",
+        "dish3-name": "Spigola d'allevamento arrosto",
+        "dish3-desc": "Filetto di spigola scottato, infuso di olio extravergine d'oliva, agrumi e verdure di stagione.",
+        "dish4-name": "Couscous d'Eccezione ",
+        "badge-chef": "Chef",
+        "dish4-desc": "Semola fine lavorata a mano alla vecchia maniera, brodo profumato alle spezie dolci e la sua guarnizione premium.",
+        "title-grillades": "Grigliate a Legna",
+        "sub-grillades": "Carni d'eccellenza cotte alla perfezione",
+        "dish5-name": "Teneri Spiedini d'Agnello",
+        "dish5-desc": "Pezzi d'agnello marinati con aromi orientali, grigliati minuziosamente, serviti con patatine fritte fatte in casa.",
+        "title-desserts": "Dolci",
+        "sub-desserts": "Per concludere con un'irresistibile nota dolce",
+        "dish6-name": "Dolcezza Festiva Versailles",
+        "dish6-desc": "La nostra interpretazione gourmet che unisce sapori delicati di frutta fresca e consistenze morbide.",
+        "title-boissons": "Mocktail e Bevande",
+        "sub-boissons": "Creazioni rinfrescanti e rituali caldi",
+        "dish7-name": "Limonata Artigianale Fina",
+        "dish7-desc": "Limoni freschi frullati con menta dolce, leggermente zuccherati, serviti ghiacciati.",
+        "dish8-name": "Tè Reale con Pinoli",
+        "dish8-desc": "Tè verde traditionnel infuso con menta fresca, sormontato da generosi pinoli tostati.",
+        "text-footer": "© 2026 Versailles Lounge & Restaurant · Design Connesso Premium"
+      }
+    };
+
+    const flagGradients = {
+      fr: "linear-gradient(90deg, #002395 33.3%, #ffffff 33.3%, #ffffff 66.6%, #ed2939 66.6%)", 
+      en: "linear-gradient(90deg, #3c3b6e 40%, transparent 40%), linear-gradient(180deg, #b22234 8.3%, #ffffff 8.3%, #ffffff 16.6%, #b22234 16.6%, #b22234 25%, #ffffff 25%, #ffffff 33.3%, #b22234 33.3%, #b22234 41.6%, #ffffff 41.6%, #ffffff 50%, #b22234 50%, #b22234 58.3%, #ffffff 58.3%, #ffffff 66.6%, #b22234 66.6%, #b22234 75%, #ffffff 75%, #ffffff 83.3%, #b22234 83.3%, #b22234 91.6%, #ffffff 91.6%)", 
+      it: "linear-gradient(90deg, #009246 33.3%, #ffffff 33.3%, #ffffff 66.6%, #ce2b37 66.6%)"  
+    };
+
+    const currencyConfig = {
+      fr: { rate: 1, suffix: " TND", prefix: "" },
+      en: { rate: 0.32, suffix: "", prefix: "$" }, 
+      it: { rate: 0.30, suffix: " €", prefix: "" }  
+    };
+
+    function changeLanguage(lang) {
+      const flagIndicator = document.getElementById('flagIndicator');
+      if (flagIndicator && flagGradients[lang]) {
+        flagIndicator.style.background = flagGradients[lang];
+      }
+
+      const config = currencyConfig[lang] || currencyConfig.fr;
+      document.querySelectorAll('.dish-price').forEach(el => {
+        const basePrice = parseFloat(el.getAttribute('data-base-price'));
+        if (!isNaN(basePrice)) {
+          const convertedPrice = (basePrice * config.rate).toFixed(lang === 'fr' ? 0 : 2);
+          el.textContent = `${config.prefix}${convertedPrice}${config.suffix}`;
+        }
+      });
+
+      const langData = translations[lang];
+      for (let id in langData) {
+        const element = document.getElementById(id);
+        if (element) {
+          if (id === 'text-scan-pill') {
+            element.querySelector('span').textContent = langData[id];
+          } 
+          else if (id === 'dish2-name') {
+            element.innerHTML = langData[id] + `<span class="badge" id="badge-popular">${translations[lang]['badge-popular']}</span>`;
+          }
+          else if (id === 'dish4-name') {
+            element.innerHTML = langData[id] + `<span class="badge" id="badge-chef">${translations[lang]['badge-chef']}</span>`;
+          }
+          else {
+            element.textContent = langData[id];
+          }
+        }
+      }
+    }
+
+    // ---- Navigation Unifiée & Défilement Fluide ----
+    const buttons = document.querySelectorAll('nav button');
+    const sections = document.querySelectorAll('section');
+    let isScrollingClick = false; 
+    let scrollTimeout;
+
+    function setButtonActive(targetId) {
+      buttons.forEach(btn => {
+        if (btn.dataset.target === targetId) {
+          btn.classList.add('active');
+          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isScrollingClick = true;
+        clearTimeout(scrollTimeout);
+        
+        const targetId = btn.dataset.target;
+        setButtonActive(targetId);
+        
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          const yOffset = -80; 
+          const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+
+        scrollTimeout = setTimeout(() => { isScrollingClick = false; }, 800); 
+      });
+    });
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px', 
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (isScrollingClick) return; 
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setButtonActive(entry.target.getAttribute('id'));
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>
